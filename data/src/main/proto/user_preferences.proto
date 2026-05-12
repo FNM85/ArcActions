@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package com.arcactions.data;
+
+option java_package = "com.arcactions.data";
+option java_multiple_files = true;
+
+message OrbConfigProto {
+  int32 size_dp = 1;
+  float opacity = 2;
+  bool is_3d = 3;
+  uint64 primary_color = 4;
+  uint64 secondary_color = 5;
+  string animation_quality = 6;
+}
+
+message GestureSlotProto {
+  int32 id = 1;
+  string gesture_type = 2;
+  ActionProto action = 3;
+}
+
+message ActionProto {
+  oneof action_type {
+    LaunchAppProto launch_app = 1;
+    SystemCommandProto system_command = 2;
+    string execute_macro = 3;
+    PasteClipboardProto paste_clipboard = 4;
+    QuickSettingProto quick_setting = 5;
+  }
+}
+
+message LaunchAppProto {
+  string package_name = 1;
+  string activity_name = 2;
+  string deep_link = 3;
+}
+
+message SystemCommandProto {
+  string command = 1;
+}
+
+message PasteClipboardProto {
+  string item_id = 1;
+}
+
+message QuickSettingProto {
+  string tile_name = 1;
+}
+
+message UserPreferencesProto {
+  OrbConfigProto orb_config = 1;
+  repeated GestureSlotProto gesture_slots = 2;
+  bool clipboard_enabled = 3;
+  int32 clipboard_timeout_seconds = 4;
+  int32 max_clipboard_items = 5;
+  bool show_notification = 6;
+  bool high_quality_mode = 7;
+  int32 flyout_width_dp = 8;
+}
+
+// Add more messages for Macro, ClipboardItem as needed
